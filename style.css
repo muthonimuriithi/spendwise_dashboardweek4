@@ -1,0 +1,176 @@
+/* THEME: CSS custom properties */
+:root {
+    --brand: #2c5f7c;
+    --accent: #4a90a4;
+    --bg: #f4f7f9;
+    --surface: #ffffff;
+    --text-primary: #333333;
+    --text-secondary: #777777;
+    --border: #dddddd;
+    --on-brand: #ffffff;
+    --heading: var(--brand);
+    --shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    --radius: 8px;
+}
+
+/* DARK THEME: overrides only the variables */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #11171d;
+        --surface: #1b242d;
+        --text-primary: #e8eef2;
+        --text-secondary: #9fb0bd;
+        --border: #2d3a46;
+        --heading: #8cc0d6;
+        --shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+    }
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--bg);
+    color: var(--text-primary);
+}
+
+/* PAGE LAYOUT: CSS Grid */
+.dashboard {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+        "sidebar header"
+        "sidebar content";
+    min-height: 100vh;
+}
+
+.sidebar { grid-area: sidebar; }
+.header  { grid-area: header; }
+.content { grid-area: content; }
+
+/* SIDEBAR: Flexbox column */
+.sidebar {
+    background-color: var(--brand);
+    color: var(--on-brand);
+    padding: 24px 16px;
+}
+
+.logo {
+    margin-bottom: 30px;
+}
+
+.nav-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nav-list a {
+    display: block;
+    padding: 10px 14px;
+    color: var(--on-brand);
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+.nav-list a:hover,
+.nav-list a.active {
+    background-color: var(--accent);
+}
+
+/* HEADER: Flexbox row */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 20px 30px;
+    background-color: var(--surface);
+    border-bottom: 1px solid var(--border);
+}
+
+.user {
+    color: var(--accent);
+    font-style: italic;
+}
+
+/* CARDS: Grid for the set, Flexbox inside each card */
+.content {
+    padding: 30px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background-color: var(--surface);
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.card h3 {
+    color: var(--heading);
+}
+
+.amount {
+    font-size: 1.6rem;
+    font-weight: bold;
+}
+
+.note {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* MICRO-INTERACTIONS: hover and keyboard focus */
+.card:hover,
+.card:focus {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+}
+
+.card:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .card {
+        transition: none;
+    }
+}
+
+/* RESPONSIVE: single column below 768px */
+@media (max-width: 767px) {
+    .dashboard {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "header"
+            "sidebar"
+            "content";
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .nav-list {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}
