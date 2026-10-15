@@ -29,38 +29,55 @@
         </header>
 
         <main class="content">
-            <section class="cards">
-                <article class="card" tabindex="0">
-                    <h3>Food</h3>
-                    <p class="amount">KSh 12,800</p>
-                    <p class="note">of KSh 16,000 budget</p>
-                </article>
-                <article class="card" tabindex="0">
-                    <h3>Transport</h3>
-                    <p class="amount">KSh 3,400</p>
-                    <p class="note">of KSh 5,000 budget</p>
-                </article>
-                <article class="card" tabindex="0">
-                    <h3>Rent</h3>
-                    <p class="amount">KSh 25,000</p>
-                    <p class="note">of KSh 25,000 budget</p>
-                </article>
-                <article class="card" tabindex="0">
-                    <h3>Entertainment</h3>
-                    <p class="amount">KSh 2,400</p>
-                    <p class="note">of KSh 4,000 budget</p>
-                </article>
-                <article class="card" tabindex="0">
-                    <h3>Savings</h3>
-                    <p class="amount">KSh 10,000</p>
-                    <p class="note">of KSh 12,000 goal</p>
-                </article>
-                <article class="card" tabindex="0">
-                    <h3>Utilities</h3>
-                    <p class="amount">KSh 4,410</p>
-                    <p class="note">of KSh 6,000 budget</p>
-                </article>
+
+            <section class="panel">
+                <h2>Monthly Budget</h2>
+                <form id="budget-form" class="form-row" novalidate>
+                    <input type="number" id="budget-input" min="0" placeholder="Monthly budget (KSh)" aria-label="Monthly budget in shillings">
+                    <button type="submit">Set Budget</button>
+                </form>
+        
+                <div class="summary">
+                    <p>Budget: <strong id="summary-budget">KSh 0</strong></p>
+                    <p>Spent: <strong id="summary-spent">KSh 0</strong></p>
+                    <p>Remaining: <strong id="summary-remaining">KSh 0</strong></p>
+                    <p>Used: <strong id="summary-percent">0%</strong></p>
+                </div>
+        
+                <p id="status-message" class="status" role="status"></p>
             </section>
+        
+            <section class="cards" id="cards"></section>
+        
+            <section class="panel">
+                <h2>Add Expense</h2>
+                <form id="expense-form" class="form-row" novalidate>
+                    <input type="text" id="expense-name" placeholder="Description" aria-label="Expense description">
+                    <input type="number" id="expense-amount" min="1" placeholder="Amount (KSh)" aria-label="Expense amount in shillings">
+                    <select id="expense-category" aria-label="Expense category"></select>
+                    <button type="submit">Add Expense</button>
+                </form>
+                <p id="form-error" class="error" role="alert"></p>
+            </section>
+        
+            <section class="panel">
+                <h2>Expenses</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th>Amount</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="expense-list"></tbody>
+                    </table>
+                </div>
+                <p id="empty-message">No expenses yet.</p>
+            </section>
+        
         </main>
 
     </div>
